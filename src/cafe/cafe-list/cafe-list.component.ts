@@ -23,4 +23,18 @@ export class CafeListComponent implements OnInit {
     this.getCafes();
   }
 
+  getCafeCounts(): { tipo: string, count: number }[] {
+    const counts: { tipo: string, count: number }[] = [];
+    this.cafes.forEach(cafe => {
+      const tipo = cafe.tipo.includes('Café') ? cafe.tipo.replace('Café', '').trim() : cafe.tipo;
+      const existingCount = counts.find(count => count.tipo === tipo);
+      if (existingCount) {
+        existingCount.count++;
+      } else {
+        counts.push({ tipo, count: 1 });
+      }
+    });
+    return counts;
+  }
+
 }

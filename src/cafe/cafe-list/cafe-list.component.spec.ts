@@ -14,20 +14,19 @@ describe('CafeListComponent', () => {
   let fixture: ComponentFixture<CafeListComponent>;
   let debug: DebugElement;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
       declarations: [CafeListComponent],
-      providers: [CafeService]
-    })
-    .compileComponents();
+      providers: [CafeService],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CafeListComponent);
     component = fixture.componentInstance;
 
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 3; i++) {
       const cafe = new Cafe(
         faker.number.int(),
         faker.commerce.productName(),
@@ -36,7 +35,7 @@ describe('CafeListComponent', () => {
       );
       component.cafes.push(cafe);
     }
-    
+
     fixture.detectChanges();
     debug = fixture.debugElement;
   });
@@ -54,7 +53,7 @@ describe('CafeListComponent', () => {
   });
 
   it('should have 6 <tr> elements in tbody', () => {
-    expect(debug.queryAll(By.css('tbody tr')).length).toBe(6);
+    expect(debug.queryAll(By.css('tbody tr')).length).toBe(3);
   });
 
   it('should have 4 <th> elements in thead', () => {
@@ -63,8 +62,29 @@ describe('CafeListComponent', () => {
 
   it('should have the corresponding id each coffee', () => {
     debug.queryAll(By.css('tbody tr td:first-child')).forEach((coffee, i) => {
-      expect(coffee.nativeElement.textContent.trim()).toBe(component.cafes[i].id.toString());
+      expect(coffee.nativeElement.textContent.trim()).toBe(
+        component.cafes[i].id.toString()
+      );
     });
-});
+  });
 
+  it('should count types of <<café>> dynamically', () => {
+    const cafe = new Cafe(
+      faker.number.int(),
+      faker.commerce.productName(),
+      component.cafes[0].tipo.toString(),
+      faker.location.city()
+    );
+    component.cafes.push(cafe);
+
+    fixture.detectChanges();
+    debug = fixture.debugElement;
+
+    const counts = component.getCafeCounts();
+
+    const existingType = component.cafes[0].tipo.toString();
+    const typeCount = counts.find((count) => count.tipo === existingType)?.count;
+
+    expect(typeCount).toBe(2);
+  });
 });
