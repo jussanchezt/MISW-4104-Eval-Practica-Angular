@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { share } from 'rxjs';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-root',
