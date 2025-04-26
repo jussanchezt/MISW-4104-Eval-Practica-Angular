@@ -17,4 +17,7 @@
       </tr>
     </tbody>
   </table>
+  <div *ngFor="let tipo of getCafeCounts()">
+    <p class="mb-0">Total café {{ tipo.tipo.toLowerCase() }}: {{ tipo.count }}</p>
+  </div>
 </div>
