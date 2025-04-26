@@ -3,12 +3,15 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CafeListComponent } from '../cafe/cafe-list/cafe-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([]), HttpClientModule
+        RouterModule.forRoot([]), 
+        HttpClientModule,
+        SharedModule
       ],
       declarations: [
         AppComponent,CafeListComponent
