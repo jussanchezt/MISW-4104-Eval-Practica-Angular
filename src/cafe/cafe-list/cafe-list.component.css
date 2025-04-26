@@ -1,0 +1,13 @@
+.cafe-container {
+    max-width: 700px;
+    margin-left: 1rem;
+    border-radius: 12px;
+}
+
+.cafe-table th:first-child {
+    width: 60px;
+}
+
+.cafe-table tr:last-child td {
+    border-bottom: none;
+}
