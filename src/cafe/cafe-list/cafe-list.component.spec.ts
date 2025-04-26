@@ -27,10 +27,13 @@ describe('CafeListComponent', () => {
 
     for (let i = 1; i <= 3; i++) {
       const cafe = new Cafe(
-        faker.number.int(),
+        i,
         faker.commerce.productName(),
         faker.lorem.word(),
-        faker.location.city()
+        faker.location.city(),
+        faker.lorem.word(),
+        faker.number.int(),
+        faker.internet.url()
       );
       component.cafes.push(cafe);
     }
@@ -72,7 +75,10 @@ describe('CafeListComponent', () => {
       faker.number.int(),
       faker.commerce.productName(),
       component.cafes[0].tipo.toString(),
-      faker.location.city()
+      faker.location.city(),
+      faker.lorem.word(),
+      faker.number.int(),
+      faker.internet.url()
     );
     component.cafes.push(cafe);
 
@@ -82,7 +88,9 @@ describe('CafeListComponent', () => {
     const counts = component.getCafeCounts();
 
     const existingType = component.cafes[0].tipo.toString();
-    const typeCount = counts.find((count) => count.tipo === existingType)?.count;
+    const typeCount = counts.find(
+      (count) => count.tipo === existingType
+    )?.count;
 
     expect(typeCount).toBe(2);
   });
